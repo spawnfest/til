@@ -105,8 +105,6 @@ defmodule Til.Accounts do
     User.changeset(user, %{})
   end
 
-  @hello_world_template Path.expand("../../templates/hello_world.md", __DIR__)
-                        |> File.read!()
   def find_or_create(
         _auth = %Ueberauth.Auth{
           uid: uid,
@@ -131,9 +129,8 @@ defmodule Til.Accounts do
 
         user = Repo.insert!(user)
 
-        Github.create_repo(user)
-
-        Github.create_file(user, "hello-world.md", @hello_world_template)
+        # TODO: run this in a different process
+        Github.setup_til_repo(user)
 
         {:ok, user}
     end
