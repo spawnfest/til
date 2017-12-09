@@ -3,6 +3,9 @@ defmodule TilWeb.LayoutView do
 
   alias Til.Accounts.User
 
+  def user_signed_in?(%Plug.Conn{assigns: %{current_user: %User{}}}), do: true
+  def user_signed_in?(_), do: false
+
   def user_label(%Plug.Conn{assigns: %{current_user: nil}}), do: "Anonymous Coward"
 
   def user_label(%Plug.Conn{assigns: %{current_user: %User{name: name}}})

@@ -7,7 +7,10 @@ defmodule TilWeb.Router do
     plug(:fetch_flash)
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
-    plug TilWeb.Plugs.LoadUser
+    plug(TilWeb.Plugs.LoadUser)
+  end
+
+  pipeline :authenticated do
   end
 
   pipeline :api do
@@ -20,6 +23,12 @@ defmodule TilWeb.Router do
 
     get("/", PageController, :index)
     get("/github-access-notice", PageController, :github_access_notice)
+  end
+
+  scope "/", TilWeb do
+    pipe_through([:browser, :authenticated])
+
+    get "/dash", DashController, :index
   end
 
   scope "/auth", TilWeb do
