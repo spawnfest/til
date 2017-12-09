@@ -42,6 +42,8 @@ defmodule Til.Mixfile do
       {:cowboy, "~> 1.0"},
       {:ueberauth, "~> 0.5.0"},
       {:ueberauth_github, "~> 0.6.0"},
+      {:httpoison, "> 0.0.0"},
+      {:poison, "> 0.0.0"},
 
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:cortex, "> 0.0.0", only: [:dev, :test]},
