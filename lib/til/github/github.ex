@@ -42,7 +42,7 @@ defmodule Til.Github do
         active: true,
         events: ["push"],
         config: %{
-          url: "#{@tilhub_url}/#{user.github_uid}",
+          url: "#{@tilhub_url}/publish/#{user.github_uid}",
           content_type: "json"
         }
       }

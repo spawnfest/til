@@ -17,6 +17,12 @@ defmodule TilWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  scope "/publish", TilWeb do
+    pipe_through :api
+
+    post "/:github_uid", PublishController, :perform
+  end
+
   scope "/", TilWeb do
     # Use the default browser stack
     pipe_through(:browser)
