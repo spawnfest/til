@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <h1>Share what you've learnt today in your own personal corner!</h1>
   <p class="lead">Set up your own personal space within 60 seconds!</p>
-  <p><a class="btn btn-lg btn-success" href="#" role="button">Create a TIL Now!</a></p>
+  <p><a class="btn btn-lg btn-success" href="/github-access-notice" role="button">Create a TIL Now!</a></p>
 </div>
 
 <div class="row marketing">

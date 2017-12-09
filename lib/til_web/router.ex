@@ -17,6 +17,7 @@ defmodule TilWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/github-access-notice", PageController, :github_access_notice
   end
 
   # Other scopes may use custom stacks.
