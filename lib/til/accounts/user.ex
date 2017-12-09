@@ -3,13 +3,14 @@ defmodule Til.Accounts.User do
   import Ecto.Changeset
   alias Til.Accounts.User
 
-
   schema "users" do
-    field :access_token, :string
-    field :avatar_url, :string
-    field :email, :string
-    field :name, :string
-    field :username, :string
+    field(:name, :string)
+    field(:email, :string)
+    field(:avatar_url, :string)
+
+    field(:github_uid, :integer)
+    field(:github_username, :string)
+    field(:github_access_token, :string)
 
     timestamps()
   end

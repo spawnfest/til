@@ -101,4 +101,30 @@ defmodule Til.Accounts do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  def find_or_create(
+        _auth = %Ueberauth.Auth{
+          uid: uid,
+          info: %{name: name, nickname: nickname, email: email, image: image},
+          credentials: %{token: token}
+        }
+      ) do
+    case Repo.all(from(u in User, where: u.github_uid == ^uid)) do
+      [user] ->
+        {:ok, user}
+
+      [] ->
+        user = %User{
+          name: name,
+          email: email,
+          avatar_url: image,
+          github_uid: uid,
+          github_username: nickname,
+          github_access_token: token
+        }
+
+        user = Repo.insert!(user)
+        {:ok, user}
+    end
+  end
 end

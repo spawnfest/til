@@ -1,5 +1,6 @@
 defmodule TilWeb.AuthController do
   use TilWeb, :controller
+  alias Til.Accounts
 
   plug(Ueberauth)
 
@@ -16,8 +17,9 @@ defmodule TilWeb.AuthController do
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    auth
-    |> IO.inspect(label: "AUTH")
+    {:ok, user} =
+      auth
+      |> Accounts.find_or_create()
 
     conn
     |> redirect(to: "/")
