@@ -17,31 +17,38 @@ defmodule TilWeb.Router do
     plug(:accepts, ["json"])
   end
 
-  scope "/publish", TilWeb do
-    pipe_through :api
+  @host "localhost"
+  scope "/", host: @host do
+    scope "/publish", TilWeb do
+      pipe_through(:api)
 
-    post "/:github_uid", PublishController, :perform
+      post("/:github_uid", PublishController, :perform)
+    end
+
+    scope "/", TilWeb do
+      # Use the default browser stack
+      pipe_through(:browser)
+
+      get("/", PageController, :index)
+      get("/github-access-notice", PageController, :github_access_notice)
+    end
+
+    scope "/", TilWeb do
+      pipe_through([:browser, :authenticated])
+
+      get("/dash", DashController, :index)
+    end
+
+    scope "/auth", TilWeb do
+      pipe_through(:browser)
+
+      get("/:provider", AuthController, :request)
+      get("/:provider/callback", AuthController, :callback)
+    end
   end
 
-  scope "/", TilWeb do
-    # Use the default browser stack
-    pipe_through(:browser)
-
-    get("/", PageController, :index)
-    get("/github-access-notice", PageController, :github_access_notice)
-  end
-
-  scope "/", TilWeb do
-    pipe_through([:browser, :authenticated])
-
-    get "/dash", DashController, :index
-  end
-
-  scope "/auth", TilWeb do
-    pipe_through(:browser)
-
-    get("/:provider", AuthController, :request)
-    get("/:provider/callback", AuthController, :callback)
+  scope "/" do
+    forward "/", TilWeb.Plugs.TilServerPlug
   end
 
   # Other scopes may use custom stacks.
