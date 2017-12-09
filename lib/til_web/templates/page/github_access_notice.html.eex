@@ -1,0 +1,7 @@
+<h2 class='page-header'>GitHub Access</h2>
+
+<p class=lead>
+  To setup a TIL space you'll be taken to GitHub to grant access for TIL to create and manage your TIL repository.
+</p>
+
+<button type="button" class="btn btn-success btn-lg">Take me to GitHub</button>

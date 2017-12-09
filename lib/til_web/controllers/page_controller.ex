@@ -6,6 +6,6 @@ defmodule TilWeb.PageController do
   end
 
   def github_access_notice(conn, _params) do
-    render conn, "index.html"
+    render conn, []
   end
 end
