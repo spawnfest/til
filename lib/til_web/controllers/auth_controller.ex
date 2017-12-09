@@ -1,6 +1,7 @@
 defmodule TilWeb.AuthController do
   use TilWeb, :controller
   alias Til.Accounts
+  require Logger
 
   plug(Ueberauth)
 
@@ -17,11 +18,20 @@ defmodule TilWeb.AuthController do
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    {:ok, user} =
-      auth
-      |> Accounts.find_or_create()
+    case Accounts.find_or_create(auth) do
+      {:ok, user} ->
+        conn
+        |> configure_session(renew: true)
+        |> put_session(:user_id, user.id)
+        |> put_flash(:info, "Successfully signed in.")
+        |> redirect(to: "/")
 
-    conn
-    |> redirect(to: "/")
+      oops ->
+        Logger.error("Accounts.find_or_create ERROR #{inspect(oops)}")
+
+        conn
+        |> put_flash(:error, "Something went wrong please try again")
+        |> redirect(to: "/")
+    end
   end
 end

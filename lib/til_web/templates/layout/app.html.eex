@@ -31,6 +31,11 @@
               <a class="nav-link" href="#">About</a>
             </li>
           </ul>
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">[<%= user_label(@conn) %>]</a>
+            </li>
+          </ul>
         </div>
       </nav>
 
