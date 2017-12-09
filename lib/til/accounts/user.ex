@@ -9,6 +9,7 @@ defmodule Til.Accounts.User do
     field(:avatar_url, :string)
 
     field(:github_uid, :integer)
+    field(:github_repo, :string, default: "tilhub")
     field(:github_username, :string)
     field(:github_access_token, :string)
 

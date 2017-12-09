@@ -8,6 +8,7 @@ defmodule Til.Repo.Migrations.CreateUsers do
       add :avatar_url, :string
 
       add :github_uid, :integer
+      add :github_repo, :string
       add :github_username, :string
       add :github_access_token, :string
 

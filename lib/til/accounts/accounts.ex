@@ -5,6 +5,7 @@ defmodule Til.Accounts do
 
   import Ecto.Query, warn: false
   alias Til.Repo
+  alias Til.Github
 
   alias Til.Accounts.User
 
@@ -104,6 +105,8 @@ defmodule Til.Accounts do
     User.changeset(user, %{})
   end
 
+  @hello_world_template Path.expand("../../templates/hello_world.md", __DIR__)
+                        |> File.read!()
   def find_or_create(
         _auth = %Ueberauth.Auth{
           uid: uid,
@@ -122,10 +125,16 @@ defmodule Til.Accounts do
           avatar_url: image,
           github_uid: uid,
           github_username: nickname,
-          github_access_token: token
+          github_access_token: token,
+          github_repo: "tilhub"
         }
 
         user = Repo.insert!(user)
+
+        Github.create_repo(user)
+
+        Github.create_file(user, "hello-world.md", @hello_world_template)
+
         {:ok, user}
     end
   end

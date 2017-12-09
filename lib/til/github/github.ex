@@ -1,15 +1,27 @@
 defmodule Til.Github do
   alias Til.Accounts.User
 
-  def create_repo(%User{github_access_token: access_token} = _user) do
-    payload =
+  def create_repo(%User{} = user) do
+    request(
+      :post,
+      "/user/repos",
       %{
         name: "tilhub",
-        description: "Things I have learnt!"
+        description: ":rainbow: Awesome things I have learnt!"
       }
-      |> Poison.encode!()
+      |> Poison.encode!(),
+      user.github_access_token
+    )
+  end
 
-    request(:post, "/user/repos", payload, access_token)
+  def create_file(%User{} = user, filename, contents) do
+    request(
+      :put,
+      "/repos/#{user.github_username}/#{user.github_repo}/contents/#{filename}",
+      %{path: filename, message: "Created #{filename}", content: contents |> Base.encode64()}
+      |> Poison.encode!(),
+      user.github_access_token
+    )
   end
 
   @api_url "https://api.github.com"
