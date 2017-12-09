@@ -12,5 +12,12 @@ defmodule TilWeb.LayoutView do
       when not is_nil(name) and name != "",
       do: name
 
-  def user_label(%Plug.Conn{assigns: %{current_user: %User{github_username: username}}}), do: username
+  def user_label(%Plug.Conn{assigns: %{current_user: %User{github_username: username}}}),
+    do: username
+
+  def avatar(%Plug.Conn{assigns: %{current_user: %User{avatar_url: avatar_url}}})
+      when not is_nil(avatar_url) and avatar_url != "",
+      do: avatar_url
+
+  def avatar(_), do: "http://www.gravatar.com/avatar/?d=identicon"
 end
