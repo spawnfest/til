@@ -1,36 +1,25 @@
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+  <h1>Share what you've learnt today in your own personal corner!</h1>
+  <p class="lead">Set up your own personal space within 60 seconds!</p>
+  <p><a class="btn btn-lg btn-success" href="#" role="button">Create a TIL Now!</a></p>
 </div>
 
 <div class="row marketing">
   <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
-      </li>
-      <li>
-        <a href="https://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
+    <h4>Simple editing via Markdown</h4>
+    <p>Create posts using markdown</p>
+
+    <h4>Github</h4>
+    <p>Github integration allows you to create posts from your favorite editor or even online!</p>
+
   </div>
 
   <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
+    <h4>Accept Improvements from the community</h4>
+    <p>Accept improvements to your TILs from the community using Github</p>
+
+    <h4>Commenting</h4>
+    <p>Simple commenting system to allow greater community involvement</p>
   </div>
 </div>
+

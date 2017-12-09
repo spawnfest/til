@@ -4,32 +4,52 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Share your TILs in your own personal corner.">
 
-    <title>Hello Til!</title>
+    <title>The TIL social network</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.2/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-CF64UnUzxV691sOmqagn+TQJmesKn1fgsYmlIPqYB5nm0m32jYo3LiX1BcrbuESZ" crossorigin="anonymous">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
+    <!-- /container -->
+
     <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">TIL</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
           </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+        </div>
+      </nav>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= if get_flash(@conn, :info) do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
 
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
+      <%= render @view_module, @view_template, assigns %>
+
+
+      <footer class="footer">
+        <p>&copy; 2017 StaticGarden, Inc.</p>
+      </footer>
 
     </div> <!-- /container -->
+
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
