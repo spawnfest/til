@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "restarting tilhub"
+sudo systemctl stop tilhub.service
+sudo systemctl start tilhub.service
+echo "finished restarting tilhub"

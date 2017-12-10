@@ -1,0 +1,17 @@
+[Unit]
+Description=tilhub phoenix app
+After=network.target
+
+[Service]
+User=tilhub
+WorkingDirectory=/opt/www/tilhub
+EnvironmentFile=/opt/www/tilhub/env
+ExecStart=/opt/www/tilhub/_build/prod/rel/til/bin/til foreground
+ExecStop=/opt/www/tilhub/_build/prod/rel/til/bin/til stop
+Restart=always
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=%n
+KillMode=process
+TimeoutStopSec=5

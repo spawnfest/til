@@ -47,8 +47,10 @@ defmodule Til.Mixfile do
       {:yamerl, "~> 0.4.0"},
       {:yaml_elixir, "> 0.0.0"},
       {:earmark, "> 0.0.0"},
+      # dev
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:cortex, "> 0.0.0", only: [:dev, :test]}
+      {:cortex, "> 0.0.0", only: [:dev, :test]},
+      {:distillery, "> 0.0.0"},
     ]
   end
 

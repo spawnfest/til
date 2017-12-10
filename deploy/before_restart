@@ -1,0 +1,22 @@
+#!/bin/bash
+
+oldrev=$1
+newrev=$2
+
+# source env so that we have all secrets setup
+source <(sed 's/^/export /' ./env)
+
+# deps are needed
+mix deps.get --only prod
+
+# build the js files
+(cd assets && npm install --no-progress && ./node_modules/brunch/bin/brunch build --production)
+
+# build release
+mix phoenix.digest
+mix clean til
+mix release.clean
+mix release --no-tar
+
+# run migrations
+mix ecto.migrate
