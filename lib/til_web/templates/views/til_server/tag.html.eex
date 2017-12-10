@@ -39,24 +39,21 @@ body{
       </nav>
 
       <div class="main">
+        <h1>Tag #<%= @tag %></h1>
 
-        <% post = @post %>
-          <h1><a href="/<%= post_url(post) %>"><%= post.title %></a></h1>
-          <p class="lead"> &mdash; by
-          <img width=30 height=30 src="<%= avatar(@user) %>" alt="User's Avatar" />
-          [<%= user_label(@user) %>]
-          at
-          <%= %{post.inserted_at | second: 0, microsecond: {0, 0}} |> to_string %>
-          </p>
-          <div class=post>
-            <%= markdown_to_html(post.body)%>
+        <%= for post <- @posts do %>
+          <div>
+
+            <h1><a href="/<%= post_url(post) %>"><%= post.title %></a></h1>
+            <p class="lead"> &mdash; by
+            <img width=30 height=30 src="<%= avatar(@user) %>" alt="User's Avatar" />
+            [<%= user_label(@user) %>]
+            at
+            <%= %{post.inserted_at | second: 0, microsecond: {0, 0}} |> to_string %>
+            </p>
           </div>
 
-          <div class="tags">
-            <%= for tag <- post.tags do %>
-              <a href='/tag/<%= tag %>' type="button" class="btn btn-primary btn-sm">#<%= tag %></a>
-            <% end %>
-          </div>
+        <% end %>
       </div>
 
     </div> <!-- /container -->
@@ -66,3 +63,4 @@ hljs.initHighlightingOnLoad()
     </script>
   </body>
 </html>
+

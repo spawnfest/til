@@ -8,8 +8,8 @@ defmodule TilWeb.Plugs.TilServerPlug do
 
   def init(opts), do: opts
 
-  @site_404 Path.expand("../../templates/site_404.html", __DIR__) |> File.read!
-  @post_404 Path.expand("../../templates/post_404.html", __DIR__) |> File.read!
+  @site_404 Path.expand("../../templates/site_404.html", __DIR__) |> File.read!()
+  @post_404 Path.expand("../../templates/post_404.html", __DIR__) |> File.read!()
   def call(conn, _opts) do
     # get subdomain
     with {:ok, user} <- get_user(conn),
@@ -25,6 +25,24 @@ defmodule TilWeb.Plugs.TilServerPlug do
   end
 
   # render home page
+  defp render_post(conn, user, "tag/" <> tag) do
+    posts =
+      from(
+        p in Post,
+        where: fragment("? = ANY(tags)", ^tag),
+        limit: 20,
+        select: %Post{title: p.title, path: p.path, inserted_at: p.inserted_at},
+        order_by: [desc: :inserted_at]
+      )
+      |> Repo.all()
+
+    {:safe, iodata} = Phoenix.View.render(TilServerView, "tag.html", posts: posts, user: user, tag: tag)
+
+    conn
+    |> put_resp_content_type("text/html")
+    |> send_resp(:ok, iodata)
+  end
+
   defp render_post(conn, user, "") do
     posts =
       from(p in Post, where: p.user_id == ^user.id, order_by: [desc: p.inserted_at], limit: 10)

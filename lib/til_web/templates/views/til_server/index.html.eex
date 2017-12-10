@@ -51,6 +51,13 @@ body{
           <div class=post>
             <%= markdown_to_html(post.body)%>
           </div>
+
+          <div class="tags">
+            <%= for tag <- post.tags do %>
+              <a href='/tag/<%= tag %>' type="button" class="btn btn-primary btn-sm">#<%= tag %></a>
+            <% end %>
+          </div>
+
         <% end %>
       </div>
 
