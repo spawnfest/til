@@ -31,8 +31,29 @@ defmodule TilWeb.Plugs.TilServerPlug do
       # render it
       conn
       |> put_resp_content_type("text/html")
-      |> send_resp(:ok, "<!doctype html># #{post.title}\n#{post.body}")
+      |> send_resp(:ok, """
+         <!doctype html>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css" />
+         <style>
+          pre{
+            margin: 5px 0;
+          }
+         </style>
+         <body><h1>#{post.title}</h1>#{markdown_to_html(post.body)}</body>
+         <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+         <script charset="utf-8">hljs.initHighlightingOnLoad()</script>
+         """)
     end
+  end
+
+  defp markdown_to_html(body) do
+    {:ok, html, []} =
+      Earmark.as_html(body, %Earmark.Options{
+        gfm: true,
+        breaks: false
+      })
+
+    html
   end
 
   # TODO: move to config
