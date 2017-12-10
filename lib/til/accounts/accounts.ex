@@ -135,4 +135,8 @@ defmodule Til.Accounts do
         {:ok, user}
     end
   end
+
+  def get_user_by_github_id(github_uid) do
+    Repo.get_by(User, github_uid: github_uid)
+  end
 end
