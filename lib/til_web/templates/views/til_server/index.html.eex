@@ -7,14 +7,14 @@
     <meta name="description" content="Today I Learned">
 
     <title>Today I Learned</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.2/sketchy/bootstrap.min.css" rel="stylesheet" integrity="sha384-9BaUahJwNez+jmowV4jSdSdZIlie6a+VnhBnuzVvBPdvUPC3dDLYIg31Tgw5UzLP" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.2/solar/bootstrap.min.css" rel="stylesheet" integrity="sha384-oGkRAtkjKEZyLYn5WTlt1pofzccgD5/3zF6cSvMBTIiQDF+ihUmOwlnWkXhESZEN" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css"
                            />
     <style>
 body{
   padding-top: 20px;
 }
-code{font-family: monospace;}
     </style>
   </head>
 
@@ -28,12 +28,26 @@ code{font-family: monospace;}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://tilhub.in/">
+              TilHub
+            </a>
+          </li>
+        </ul>
       </nav>
 
       <div class="main">
 
         <%= for post <- @posts do %>
-          <h1><%= post.title %></h1>
+          <h1><a href="/<%= post_url(post) %>"><%= post.title %></a></h1>
+          <p class="lead"> &mdash; by
+          <img width=30 height=30 src="<%= avatar(@user) %>" alt="User's Avatar" />
+          [<%= user_label(@user) %>]
+          at
+          <%= %{post.inserted_at | second: 0, microsecond: {0, 0}} |> to_string %>
+          </p>
           <div class=post>
             <%= markdown_to_html(post.body)%>
           </div>
