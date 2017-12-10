@@ -14,4 +14,8 @@ defmodule TilWeb.PageController do
   def github_access_notice(conn, _params) do
     render(conn, [])
   end
+
+  def about(conn, _params) do
+    render(conn, [])
+  end
 end

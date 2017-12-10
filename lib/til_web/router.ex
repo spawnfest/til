@@ -30,6 +30,7 @@ defmodule TilWeb.Router do
       pipe_through(:browser)
 
       get("/", PageController, :index)
+      get("/about", PageController, :about)
       get("/github-access-notice", PageController, :github_access_notice)
     end
 

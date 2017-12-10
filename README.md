@@ -15,22 +15,23 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## For the Judges :)
 
-  This is a phoenix web app which aims to provide users with a personal space where they can post things that they have learnt.
+  This is a phoenix web app which aims to provide users with a personal space where they can post things that they have learned.
 
   There are two ways to test this:
 
 ### The easy way
 
-  This app has been setup at https://tilhub.in/
+  This app has been setup at https://tilhub.in/ . The following steps require a GitHub account.
+  You can create a throwaway account and try this out.
 
-    1. Browse to https://tilhub.in/ in an anonymous browser window
+    1. Browse to https://tilhub.in/
     2. Click on the "Create TIL Now!" button
     3. Click on the "Take me to GitHub" button
     4. You should be taken to the GitHub authorization page. Click "Authorize minhajuddin"
     5. Now the app should do the following on your behalf
       1. Create a repository called `tilhub`
       2. Add a sample TIL post
-      3. Publish your TIL home on http://yourusername.tilhub.in/
+      3. Publish your TIL home on http://yourgithubusername.tilhub.in/
     6. Refresh the home page till you see the hello world post.
     7. Clicking on the title in the card should take you to the page which shows your TIL on TilHub
     8. Now, try adding a new post in GitHub or editing the existing hello world post.
