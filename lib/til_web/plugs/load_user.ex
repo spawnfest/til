@@ -1,6 +1,5 @@
 defmodule TilWeb.Plugs.LoadUser do
   import Plug.Conn
-  import Phoenix.Controller
 
   alias Til.Accounts
 

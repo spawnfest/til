@@ -1,10 +1,10 @@
 defmodule TilWeb.Plugs.TilServerPlug do
   import Plug.Conn
-  import Phoenix.Controller
   alias Til.Repo
   alias Til.Repository.Post
   import Ecto.Query
   alias Til.Accounts.User
+  alias TilWeb.Views.TilServerView
 
   def init(opts), do: opts
 
@@ -18,43 +18,26 @@ defmodule TilWeb.Plugs.TilServerPlug do
   end
 
   # render home page
-  defp render_post(conn, user_id, "") do
+  defp render_post(conn, _user_id, "") do
+    {:safe, iodata} = Phoenix.View.render(TilServerView, "index.html", [])
+
     conn
     |> put_resp_content_type("text/html")
-    |> send_resp(:ok, "<!doctype html><h1>Home Page</h1>")
+    |> send_resp(:ok, iodata)
   end
 
   # render home page
   defp render_post(conn, user_id, path) do
     # find the til
     with {:ok, post} <- get_post(user_id, path) do
+      {:safe, iodata} = Phoenix.View.render(TilServerView, "post.html", post: post)
       # render it
       conn
       |> put_resp_content_type("text/html")
-      |> send_resp(:ok, """
-         <!doctype html>
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css" />
-         <style>
-          pre{
-            margin: 5px 0;
-          }
-         </style>
-         <body><h1>#{post.title}</h1>#{markdown_to_html(post.body)}</body>
-         <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-         <script charset="utf-8">hljs.initHighlightingOnLoad()</script>
-         """)
+      |> send_resp(:ok, iodata)
     end
   end
 
-  defp markdown_to_html(body) do
-    {:ok, html, []} =
-      Earmark.as_html(body, %Earmark.Options{
-        gfm: true,
-        breaks: false
-      })
-
-    html
-  end
 
   @host_suffix ".#{Application.get_env(:til, :host)}"
   defp get_user(conn) do

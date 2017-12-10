@@ -1,6 +1,5 @@
 defmodule Til.Repo do
   use Ecto.Repo, otp_app: :til
-  alias __MODULE__
   import Ecto.Query
 
   @doc """
