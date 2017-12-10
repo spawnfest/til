@@ -34,7 +34,7 @@ defmodule TilWeb.Plugs.TilServerPlug do
   defp render_post(conn, user, path) do
     # find the til
     with {:ok, post} <- get_post(user, path) do
-      {:safe, iodata} = Phoenix.View.render(TilServerView, "post.html", post: post)
+      {:safe, iodata} = Phoenix.View.render(TilServerView, "post.html", post: post, user: user)
       # render it
       conn
       |> put_resp_content_type("text/html")
