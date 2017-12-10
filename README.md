@@ -35,3 +35,13 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
     7. Clicking on the title in the card should take you to the page which shows your TIL on TilHub
     8. Now, try adding a new post in GitHub or editing the existing hello world post.
     9. You should see your new/updated post in your til space http://yourusername.tilhub.in/
+
+### The hard way
+    1. Clone this repo and run the steps mentioned in ##Tech
+    2. Create a GitHub oauth application at https://github.com/settings/applications/new
+       Set the authorization callback in the GitHub app to http://localhost:4000/auth/github/callback
+    3. Create a DNS entry in your `/etc/hosts` for `your_github_username.localhost` which points to 127.0.0.1
+    4. Start your server using
+
+            TH_GITHUB_CLIENT_ID="..." TH_GITHUB_CLIENT_SECRET="..." mix phx.server
+    5. Now follow the steps mentioned in ### The easy way
