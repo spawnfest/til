@@ -1,2 +1,49 @@
-<!doctype html>
-<h1>Home sweet home</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Today I Learned">
+
+    <title>Today I Learned</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.2/sketchy/bootstrap.min.css" rel="stylesheet" integrity="sha384-9BaUahJwNez+jmowV4jSdSdZIlie6a+VnhBnuzVvBPdvUPC3dDLYIg31Tgw5UzLP" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css"
+                           />
+    <style>
+body{
+  padding-top: 20px;
+}
+code{font-family: monospace;}
+    </style>
+  </head>
+
+  <body>
+    <!-- /container -->
+
+    <div class="container">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">TIL</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+
+      <div class="main">
+
+        <%= for post <- @posts do %>
+          <h1><%= post.title %></h1>
+          <div class=post>
+            <%= markdown_to_html(post.body)%>
+          </div>
+        <% end %>
+      </div>
+
+    </div> <!-- /container -->
+    <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script charset="utf-8">
+hljs.initHighlightingOnLoad()
+    </script>
+  </body>
+</html>

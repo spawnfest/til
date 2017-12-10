@@ -18,8 +18,12 @@ defmodule TilWeb.Plugs.TilServerPlug do
   end
 
   # render home page
-  defp render_post(conn, _user_id, "") do
-    {:safe, iodata} = Phoenix.View.render(TilServerView, "index.html", [])
+  defp render_post(conn, user_id, "") do
+    posts =
+      from(p in Post, where: p.user_id == ^user_id, order_by: [desc: p.inserted_at], limit: 10)
+      |> Repo.all()
+
+    {:safe, iodata} = Phoenix.View.render(TilServerView, "index.html", posts: posts)
 
     conn
     |> put_resp_content_type("text/html")
@@ -37,7 +41,6 @@ defmodule TilWeb.Plugs.TilServerPlug do
       |> send_resp(:ok, iodata)
     end
   end
-
 
   @host_suffix ".#{Application.get_env(:til, :host)}"
   defp get_user(conn) do
@@ -57,10 +60,6 @@ defmodule TilWeb.Plugs.TilServerPlug do
         |> Enum.join("/")
         |> String.replace_suffix("/", "")
       }
-      |> IO.inspect(label: "PATH")
-
-  defp get_post(user_id, "") do
-  end
 
   defp get_post(user_id, path) do
     path = path <> ".md"
