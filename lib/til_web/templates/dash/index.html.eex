@@ -7,10 +7,17 @@
 <% else %>
   <p class=lead>
   Showing the latest 12 posts from your repository.
+
   <a href='<%= "http://#{current_user(@conn).github_username}.tilhub.in/" %>' class='btn btn-primary'>
     View your TilHub space
     <i class="fa fa-eye"></i>
   </a>
+
+<a href='<%= "https://github.com/#{current_user(@conn).github_username}/#{current_user(@conn).github_repo}" %>' class='btn btn-success'>
+    View your TilHub repository on GitHub
+    <i class="fa fa-github"></i>
+  </a>
+
   </p>
   <div class=row>
 
@@ -43,8 +50,6 @@
       </div>
 
     <% end %>
-
-
 
   </div>
 <% end %>
