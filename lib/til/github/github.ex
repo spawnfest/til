@@ -46,24 +46,19 @@ defmodule Til.Github do
       # already downloaded, nothing to do
       :ok
     else
-      contents =
+      post =
         request(
           :get,
           "/repos/#{user.github_username}/#{user.github_repo}/contents/#{path}",
           [],
           user.github_access_token
         )
-        |> parse_contents
+        |> parse_contents(user)
 
       # download and delete the old and insert the new
       Repo.delete_all(from(p in Post, where: p.user_id == ^user.id and p.path == ^path))
 
-      Repo.insert(%Post{
-        user_id: user.id,
-        path: path,
-        sha: sha,
-        contents: contents
-      })
+      Repo.insert(post)
     end
   end
 
@@ -71,11 +66,36 @@ defmodule Til.Github do
     Logger.info("skipping #{file["type"]}, #{file["path"]}")
   end
 
-  defp parse_contents({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
+  defp parse_contents({:ok, %HTTPoison.Response{status_code: 200, body: body}}, user) do
+    file =
       body
       |> Poison.decode!()
-      |> Map.get("content")
-      |> Base.decode64!(padding: false, ignore: :whitespace)
+
+    contents = file["content"] |> Base.decode64!(padding: false, ignore: :whitespace)
+
+    {title, tags, body} = parse_front_matter(contents)
+
+    %Post{
+      user_id: user.id,
+      path: file["path"],
+      sha: file["sha"],
+      title: title,
+      tags: tags,
+      body: body,
+      raw_contents: contents
+    }
+  end
+
+  def parse_front_matter(contents) do
+    [front_matter, body] =
+      contents
+      |> String.replace_prefix("---", "")
+      |> String.trim()
+      |> String.split("---", tokens: 2)
+
+    front_matter = YamlElixir.read_from_string(front_matter)
+
+    {front_matter["title"], front_matter["tags"] || [], body}
   end
 
   defp parse_json(%HTTPoison.Response{status_code: 200, body: body}) do

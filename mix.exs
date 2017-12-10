@@ -44,6 +44,8 @@ defmodule Til.Mixfile do
       {:ueberauth_github, "~> 0.6.0"},
       {:httpoison, "> 0.0.0"},
       {:poison, "> 0.0.0"},
+      {:yamerl, "~> 0.4.0"},
+      {:yaml_elixir, "> 0.0.0"},
 
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:cortex, "> 0.0.0", only: [:dev, :test]},

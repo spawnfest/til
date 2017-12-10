@@ -6,8 +6,12 @@ defmodule Til.Repo.Migrations.CreatePosts do
       add(:path, :string, null: false, primary_key: true)
       add(:user_id, references(:users, on_delete: :nothing), primary_key: true)
 
+      add(:title, :string)
+      add(:tags, {:array, :string})
+      add(:body, :text)
+
       add(:sha, :string, null: false)
-      add(:contents, :text, null: false)
+      add(:raw_contents, :text, null: false)
 
       timestamps()
     end

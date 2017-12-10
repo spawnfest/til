@@ -21,10 +21,10 @@
           </div>
           <div class="card-body">
             <h4 class="card-title">
-              <%= post.path %>
+              <%= post.title %>
             </h4>
             <p class="card-text">
-            <%= String.slice(post.contents, 0, 100) %>
+            <%= String.slice(post.body, 0, 100) %>
             </p>
           </div>
         </div>
@@ -38,10 +38,10 @@
           </div>
           <div class="card-body">
             <h4 class="card-title">
-              <%= post.path %>
+              <%= post.title %>
             </h4>
             <p class="card-text">
-            <%= String.slice(post.contents, 0, 100) %>
+            <%= String.slice(post.body, 0, 100) %>
             </p>
           </div>
         </div>
@@ -55,10 +55,10 @@
           </div>
           <div class="card-body">
             <h4 class="card-title">
-              <%= post.path %>
+              <%= post.title %>
             </h4>
             <p class="card-text">
-            <%= String.slice(post.contents, 0, 100) %>
+            <%= String.slice(post.body, 0, 100) %>
             </p>
           </div>
         </div>

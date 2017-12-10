@@ -9,7 +9,11 @@ defmodule Til.Repository.Post do
     field :path, :string, primary_key: true
     field :user_id, :id, primary_key: true
 
-    field :contents, :string
+    field :title, :string
+    field :tags, {:array, :string}
+    field :body, :string
+
+    field :raw_contents, :string
     field :sha, :string
 
     timestamps()

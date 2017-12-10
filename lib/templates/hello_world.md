@@ -1,6 +1,5 @@
 ---
 title: Hello, World!
-date: 2017-12-09
 tags:
 - hello-world
 - tilhub
