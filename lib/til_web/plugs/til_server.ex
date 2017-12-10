@@ -8,12 +8,19 @@ defmodule TilWeb.Plugs.TilServerPlug do
 
   def init(opts), do: opts
 
+  @site_404 Path.expand("../../templates/site_404.html", __DIR__) |> File.read!
+  @post_404 Path.expand("../../templates/post_404.html", __DIR__) |> File.read!
   def call(conn, _opts) do
     # get subdomain
     with {:ok, user} <- get_user(conn),
          # get path
          {:ok, path} <- get_path(conn) do
       render_post(conn, user, path)
+    else
+      :site_not_found ->
+        conn
+        |> put_resp_content_type("text/html")
+        |> send_resp(:not_found, @site_404)
     end
   end
 
@@ -39,6 +46,11 @@ defmodule TilWeb.Plugs.TilServerPlug do
       conn
       |> put_resp_content_type("text/html")
       |> send_resp(:ok, iodata)
+    else
+      :post_not_found ->
+        conn
+        |> put_resp_content_type("text/html")
+        |> send_resp(:not_found, @post_404)
     end
   end
 
