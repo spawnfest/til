@@ -121,7 +121,7 @@ defmodule Til.Github do
     )
   end
 
-  @tilhub_url "https://tilhub.in"
+  @tilhub_url "https://#{Application.get_env(:til, :host)}"
   def create_push_webhook(%User{} = user) do
     request(
       :post,

@@ -56,8 +56,7 @@ defmodule TilWeb.Plugs.TilServerPlug do
     html
   end
 
-  # TODO: move to config
-  @host_suffix ".tilhub.in"
+  @host_suffix ".#{Application.get_env(:til, :host)}"
   defp get_user(conn) do
     subdomain = conn.host |> to_string |> String.replace_suffix(@host_suffix, "")
 

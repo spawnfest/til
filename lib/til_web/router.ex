@@ -17,7 +17,7 @@ defmodule TilWeb.Router do
     plug(:accepts, ["json"])
   end
 
-  @host "localhost"
+  @host Application.get_env(:til, :host)
   scope "/", host: @host do
     scope "/publish", TilWeb do
       pipe_through(:api)

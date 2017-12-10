@@ -8,6 +8,8 @@ use Mix.Config
 # General application configuration
 config :til, ecto_repos: [Til.Repo]
 
+config :til, [host: "tilhub.in"]
+
 # Configures the endpoint
 config :til, TilWeb.Endpoint,
   url: [host: "localhost"],
