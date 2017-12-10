@@ -10,6 +10,7 @@
   </p>
   <div class=row>
 
+    <% #TODO: Clean up this duplication %>
 
     <% %{ 0 => p1, 1 => p2, 2 => p3} = @posts |> Enum.with_index |> Enum.group_by(fn {_p, idx} -> rem(idx, 3) end) %>
 

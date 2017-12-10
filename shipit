@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+echo "Deploy? enter to continue, Ctl+C to abort"
+read
+
+git push prod HEAD:master
