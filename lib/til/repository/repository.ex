@@ -5,8 +5,8 @@ defmodule Repository do
 
   alias Til.Accounts.User
 
-  def posts_for(%User{} = user) do
-    from(p in Post, where: p.user_id == ^user.id)
+  def posts_for(%User{} = user, limit) do
+    from(p in Post, where: p.user_id == ^user.id, limit: ^limit)
     |> Repo.all()
   end
 

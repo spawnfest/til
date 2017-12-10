@@ -10,61 +10,32 @@
   </p>
   <div class=row>
 
-    <% #TODO: Clean up this duplication %>
+    <% grouped_posts = @posts |> Enum.with_index |> Enum.group_by(fn {_p, idx} -> rem(idx, 3) end) %>
 
-    <% %{ 0 => p1, 1 => p2, 2 => p3} = @posts |> Enum.with_index |> Enum.group_by(fn {_p, idx} -> rem(idx, 3) end) %>
+    <%= for {_, posts} <- grouped_posts do %>
 
-    <div class='col-sm-4'>
-      <%= for {post, _} <- p1  do %>
-        <div class="card bg-secondary mb-3" style="max-width: 20rem;">
-          <div class="card-header">
-            <%= post.path %>
+      <div class='col-sm-4'>
+        <%= for {post, _} <- posts  do %>
+          <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+            <div class="card-header">
+              <a href='<%= "https://github.com/#{current_user(@conn).github_username}/#{current_user(@conn).github_repo}/blob/master/#{post.path}" %>' title="Edit this on GitHub"><%= post.path %></a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href='<%= "http://#{current_user(@conn).github_username}.tilhub.in/#{String.replace_suffix(post.path, ".md", "")}" %>' title="View this in your TilHub">
+                  <%= post.title %>
+                </a>
+              </h4>
+              <p class="card-text">
+              <%= String.slice(post.body, 0, 100) %>
+              </p>
+            </div>
           </div>
-          <div class="card-body">
-            <h4 class="card-title">
-              <%= post.title %>
-            </h4>
-            <p class="card-text">
-            <%= String.slice(post.body, 0, 100) %>
-            </p>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <div class='col-sm-4'>
-      <%= for {post, _} <- p2  do %>
-        <div class="card bg-secondary mb-3" style="max-width: 20rem;">
-          <div class="card-header">
-            <%= post.path %>
-          </div>
-          <div class="card-body">
-            <h4 class="card-title">
-              <%= post.title %>
-            </h4>
-            <p class="card-text">
-            <%= String.slice(post.body, 0, 100) %>
-            </p>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <div class='col-sm-4'>
-      <%= for {post, _} <- p3  do %>
-        <div class="card bg-secondary mb-3" style="max-width: 20rem;">
-          <div class="card-header">
-            <%= post.path %>
-          </div>
-          <div class="card-body">
-            <h4 class="card-title">
-              <%= post.title %>
-            </h4>
-            <p class="card-text">
-            <%= String.slice(post.body, 0, 100) %>
-            </p>
-          </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+
+    <% end %>
+
 
 
   </div>

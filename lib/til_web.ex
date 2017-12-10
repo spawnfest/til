@@ -31,6 +31,8 @@ defmodule TilWeb do
       use Phoenix.View, root: "lib/til_web/templates",
                         namespace: TilWeb
 
+      import TilWeb.Views.ViewUtils
+
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
 
