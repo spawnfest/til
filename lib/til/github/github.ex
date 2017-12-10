@@ -46,13 +46,14 @@ defmodule Til.Github do
       # already downloaded, nothing to do
       :ok
     else
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} =
+      contents =
         request(
           :get,
           "/repos/#{user.github_username}/#{user.github_repo}/contents/#{path}",
           [],
           user.github_access_token
         )
+        |> parse_contents
 
       # download and delete the old and insert the new
       Repo.delete_all(from(p in Post, where: p.user_id == ^user.id and p.path == ^path))
@@ -61,14 +62,20 @@ defmodule Til.Github do
         user_id: user.id,
         path: path,
         sha: sha,
-        contents: body
+        contents: contents
       })
     end
-
   end
 
   def download_file(_user, file) do
     Logger.info("skipping #{file["type"]}, #{file["path"]}")
+  end
+
+  defp parse_contents({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
+      body
+      |> Poison.decode!()
+      |> Map.get("content")
+      |> Base.decode64!(padding: false, ignore: :whitespace)
   end
 
   defp parse_json(%HTTPoison.Response{status_code: 200, body: body}) do
