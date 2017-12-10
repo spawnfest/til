@@ -1,60 +1,70 @@
 <h1 class='page-header'>Dash</h1>
 
-<div class=row>
+<%= if @posts == [] do %>
+  <p class="lead">
+  No posts found in your GitHub repository. Please create a new post.
+  </p>
+<% else %>
+  <p class=lead>
+  Showing the latest 12 posts from your repository
+  </p>
+  <div class=row>
 
-  <% %{ 0 => p1, 1 => p2, 2 => p3} = @posts |> Enum.with_index |> Enum.group_by(fn {p, idx} -> rem(idx, 3) end) %>
 
-  <div class='col-sm-4'>
-    <%= for {post, _} <- p1  do %>
-      <div class="card bg-secondary mb-3" style="max-width: 20rem;">
-        <div class="card-header">
-          <%= post.path %>
-        </div>
-        <div class="card-body">
-          <h4 class="card-title">
+    <% %{ 0 => p1, 1 => p2, 2 => p3} = @posts |> Enum.with_index |> Enum.group_by(fn {_p, idx} -> rem(idx, 3) end) %>
+
+    <div class='col-sm-4'>
+      <%= for {post, _} <- p1  do %>
+        <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+          <div class="card-header">
             <%= post.path %>
-          </h4>
-          <p class="card-text">
-          <%= String.slice(post.contents, 0, 100) %>
-          </p>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">
+              <%= post.path %>
+            </h4>
+            <p class="card-text">
+            <%= String.slice(post.contents, 0, 100) %>
+            </p>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-  <div class='col-sm-4'>
-    <%= for {post, _} <- p2  do %>
-      <div class="card bg-secondary mb-3" style="max-width: 20rem;">
-        <div class="card-header">
-          <%= post.path %>
-        </div>
-        <div class="card-body">
-          <h4 class="card-title">
+      <% end %>
+    </div>
+    <div class='col-sm-4'>
+      <%= for {post, _} <- p2  do %>
+        <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+          <div class="card-header">
             <%= post.path %>
-          </h4>
-          <p class="card-text">
-          <%= String.slice(post.contents, 0, 100) %>
-          </p>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">
+              <%= post.path %>
+            </h4>
+            <p class="card-text">
+            <%= String.slice(post.contents, 0, 100) %>
+            </p>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-  <div class='col-sm-4'>
-    <%= for {post, _} <- p3  do %>
-      <div class="card bg-secondary mb-3" style="max-width: 20rem;">
-        <div class="card-header">
-          <%= post.path %>
-        </div>
-        <div class="card-body">
-          <h4 class="card-title">
+      <% end %>
+    </div>
+    <div class='col-sm-4'>
+      <%= for {post, _} <- p3  do %>
+        <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+          <div class="card-header">
             <%= post.path %>
-          </h4>
-          <p class="card-text">
-          <%= String.slice(post.contents, 0, 100) %>
-          </p>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">
+              <%= post.path %>
+            </h4>
+            <p class="card-text">
+            <%= String.slice(post.contents, 0, 100) %>
+            </p>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
 
 
-</div>
+  </div>
+<% end %>
