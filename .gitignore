@@ -25,3 +25,21 @@ npm-debug.log
 # secrets files as long as you replace their contents by environment
 # variables.
 /config/*.secret.exs
+
+
+# prod stuff
+.bash_history
+.bash_logout
+.bashrc
+.cache/
+.erlang.cookie
+.hex/
+.inputrc
+.mix/
+.npm/
+.profile
+.psql_history
+.viminfo
+env
+log/
+tmp/

@@ -19,5 +19,5 @@ defmodule TilWeb.LayoutView do
       when not is_nil(avatar_url) and avatar_url != "",
       do: avatar_url
 
-  def avatar(_), do: "http://www.gravatar.com/avatar/?d=identicon"
+  def avatar(_), do: "https://www.gravatar.com/avatar/?d=identicon"
 end
