@@ -26,9 +26,10 @@ defmodule TilWeb.Plugs.TilServerPlug do
 
   # render home page
   defp render_post(conn, user, "tag/" <> tag) do
+    q = from p in Post, where: p.user_id == ^user.id
     posts =
       from(
-        p in Post,
+        p in q,
         where: fragment("? = ANY(tags)", ^tag),
         limit: 20,
         select: %Post{title: p.title, path: p.path, inserted_at: p.inserted_at},
